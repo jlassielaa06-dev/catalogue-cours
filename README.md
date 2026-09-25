@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CatalogueCours
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
@@ -57,3 +58,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+# catalogue-cours
+>>>>>>> 942dba2f9789deb876719b2e7ff88290ffad2a8f
