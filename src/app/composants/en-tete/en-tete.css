@@ -1,0 +1,16 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espace-3) var(--espace-2);
+  background-color: #000000;
+  color: #ffffff;
+  border-bottom: 4px solid var(--couleur-accent);
+  box-shadow: var(--ombre);
+}
+ 
+header h1 {
+  font-size: clamp(1.25rem, 2vw + 1rem, 1.9rem);
+  letter-spacing: 0.02em;
+  text-align: center;
+}

@@ -1,1 +1,62 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --couleur-primaire: #4f46e5;
+  --couleur-primaire-fonce: #3730a3;
+  --couleur-accent: #06b6d4;
+  --couleur-fond: #f7f7fb;
+  --couleur-surface: #ffffff;
+  --couleur-texte: #1f2333;
+  --couleur-texte-clair: #6b7280;
+  --couleur-bordure: #e5e7eb;
+ 
+  --rayon: 12px;
+  --ombre: 0 2px 8px rgba(17, 24, 39, 0.06);
+  --ombre-hover: 0 8px 24px rgba(17, 24, 39, 0.12);
+ 
+  --espace-1: 0.5rem;
+  --espace-2: 1rem;
+  --espace-3: 1.5rem;
+  --espace-4: 2.5rem;
+}
+ 
+* {
+  box-sizing: border-box;
+}
+ 
+html, body {
+  height: 100%;
+}
+ 
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--couleur-fond);
+  color: var(--couleur-texte);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+ 
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 700;
+}
+ 
+p {
+  margin: 0;
+}
+ 
+/* Le composant racine empile en-tête / contenu / pied de page
+   sur toute la hauteur de l'écran, footer collé en bas */
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+ 
+/* app-liste-cours est le composant enfant direct d'app-root :
+   on le force à grandir pour pousser le footer tout en bas,
+   même si la liste de cours est courte */
+app-liste-cours {
+  flex: 1;
+  display: flex;
+}
+ 
