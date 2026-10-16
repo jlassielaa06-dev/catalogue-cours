@@ -101,4 +101,94 @@
     padding: var(--espace-3) var(--espace-2);
   }
 }
- 
+
+
+.carte-cours.actif {
+ border: 2px solid #dd0031;
+ background-color: #fdecef;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.controles {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-2);
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--espace-3) var(--espace-2) 0;
+}
+
+.champ-recherche {
+  position: relative;
+  flex: 1;
+}
+
+.champ-recherche .icone {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.champ-recherche input {
+  width: 100%;
+  height: 46px;
+  padding: 0 16px 0 44px;
+  font-size: 1rem;
+  color: #1f2937;
+  background: #f4f5fd;
+  border: 1px solid #dfe2f3;
+  border-radius: 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.champ-recherche input::placeholder {
+  color: #9ca3af;
+}
+
+.champ-recherche input:hover {
+  background: #e9ebfa;
+}
+
+.champ-recherche input:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #7b8cf0;
+}
+
+.controles select {
+  height: 46px;
+  padding: 0 40px 0 16px;
+  font-size: 0.95rem;
+  color: #1f2937;
+  background: #f4f5fd url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 14px center;
+  border: 1px solid #dfe2f3;
+  border-radius: 12px;
+  appearance: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.controles select:hover {
+  background-color: #e9ebfa;
+}
+
+.controles select:focus {
+  outline: none;
+  border-color: #7b8cf0;
+}
+
+@media (max-width: 480px) {
+  .controles {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
