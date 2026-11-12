@@ -5,6 +5,7 @@ import { Connexion } from './pages/connexion/connexion';
 import { Introuvable } from './pages/introuvable/introuvable';
 import { ListeCours } from './composants/liste-cours/liste-cours';
 import { authGuard } from './guards/auth-guard';
+import { Inscription } from './pages/inscription/inscription';
 
 export const routes: Routes = [
  { path: '', component: Accueil, title: 'Accueil' },
@@ -16,6 +17,13 @@ export const routes: Routes = [
     redirectTo: 'cours',
     pathMatch: 'full'
     },
+    {
+ path: 'cours/:id/inscription',
+ component: Inscription,
+ canActivate: [authGuard],
+ title: 'Inscription',
+ },
+
  { path: '**', component: Introuvable, title: 'Page introuvable' },
  {
  path: 'mes-inscriptions',
