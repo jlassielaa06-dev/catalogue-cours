@@ -1,28 +1,28 @@
-import { Component, signal } from '@angular/core';
-import { EnTete } from './composants/en-tete/en-tete';
-import { ListeCours } from './composants/liste-cours/liste-cours';
-import { PiedPage } from './composants/pied-page/pied-page';
-import { Cours } from './composants/liste-cours/liste-cours';
-import { DetailCours } from './composants/detail-cours/detail-cours';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Session } from './services/session';
 
+import { EnTete } from './composants/en-tete/en-tete';
+import { PiedPage } from './composants/pied-page/pied-page';
 
 @Component({
+  selector: 'app-root',
   imports: [
     EnTete,
-    ListeCours,
-    DetailCours,
     PiedPage,
-    
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive
   ],
-  selector: 'app-root',
-  styleUrl: './app.css',
   templateUrl: './app.html',
+  styleUrl: './app.css',
 })
 export class App {
+  session = inject(Session);
+  private router = inject(Router);
 
-  coursSelectionne: Cours | null = null;
-  onSelectionCours(c: Cours) {
-    this.coursSelectionne = c;
+  deconnecter() {
+    this.session.deconnecter();
+    this.router.navigateByUrl('/');
   }
-  
 }
