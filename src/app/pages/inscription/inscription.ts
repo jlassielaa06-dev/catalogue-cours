@@ -1,39 +1,50 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from
-'@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { COURS, Cours } from '../../donnees/cours';
+
+import { Cours } from '../../donnees/cours';
+import { InscriptionCours } from '../../donnees/inscription-cours';
+
 import { Session } from '../../services/session';
+import { Catalogue } from '../../services/catalogue';
+import { Inscriptions } from '../../services/inscriptions';
+
 import { nomComplet } from '../../validators/nom-complet';
 
-
 @Component({
- selector: 'app-inscription',
- imports: [ReactiveFormsModule, RouterLink],
- templateUrl: './inscription.html',
- styleUrl: './inscription.css',
+  selector: 'app-inscription',
+  imports: [ReactiveFormsModule, RouterLink],
+  templateUrl: './inscription.html',
+  styleUrl: './inscription.css',
 })
-
 export class Inscription implements OnInit {
- private session = inject(Session);
- @Input() id = ''; // reçoit le :id de l'URL
- confirmation = '';
- form = new FormGroup({
- nom: new FormControl('', [Validators.required, nomComplet]),
- email: new FormControl('', [Validators.required, Validators.email]),
- telephone: new FormControl('', [Validators.pattern(/^[0-9]{8}$/)]),
- niveau: new FormControl('', [Validators.required]),
- motivation: new FormControl('', [Validators.required,
-Validators.minLength(20)]),
- conditions: new FormControl(false, [Validators.requiredTrue]),
- });
- get cours(): Cours | undefined {
- return COURS.find(c => c.id === Number(this.id));
- }
- ngOnInit() {
- // Pré-remplit le nom avec celui de l'utilisateur connecté
- this.form.patchValue({ nom: this.session.nom() });
- }
+
+  private session = inject(Session);
+  private catalogue = inject(Catalogue);
+  inscriptions = inject(Inscriptions);
+
+  @Input() id = '';
+  confirmation = '';
+
+  form = new FormGroup({
+    nom: new FormControl('', [Validators.required, nomComplet]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    telephone: new FormControl('', [Validators.pattern(/^[0-9]{8}$/)]),
+    niveau: new FormControl('', [Validators.required]),
+    motivation: new FormControl('', [
+      Validators.required,
+      Validators.minLength(20)
+    ]),
+    conditions: new FormControl(false, [Validators.requiredTrue]),
+  });
+
+  get cours(): Cours | undefined {
+    return this.catalogue.trouver(Number(this.id));
+  }
+
+  ngOnInit() {
+    this.form.patchValue({ nom: this.session.nom() });
+  }
 
   get nom() { return this.form.controls.nom; }
   get email() { return this.form.controls.email; }
@@ -43,16 +54,26 @@ Validators.minLength(20)]),
   get conditions() { return this.form.controls.conditions; }
 
   envoyer() {
- if (this.form.invalid) {
- this.form.markAllAsTouched(); // fait apparaître toutes les erreurs
- return;
- }
- const { nom, email } = this.form.value;
- this.confirmation =
- `Merci ${nom} ! Votre inscription à « ${this.cours?.titre} » est enregistrée. `
-+
- `Un message de confirmation sera envoyé à ${email}.`;
- console.log('Inscription :', this.form.value);
- this.form.reset();
-}
+    const cours = this.cours;
+
+    if (this.form.invalid || !cours) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const v = this.form.getRawValue();
+
+    this.inscriptions.ajouter({
+      coursId: cours.id,
+      nom: v.nom ?? '',
+      email: v.email ?? '',
+      niveau: v.niveau ?? '',
+      date: new Date(),
+    });
+
+    this.confirmation =
+      `Merci ${v.nom} ! Votre inscription à « ${cours.titre} » est enregistrée.`;
+
+    this.form.reset();
+  }
 }
