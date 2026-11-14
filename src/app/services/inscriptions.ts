@@ -4,6 +4,7 @@ import { InscriptionCours } from '../donnees/inscription-cours';
 @Injectable({
   providedIn: 'root'
 })
+
 export class Inscriptions {
 
   private _liste = signal<InscriptionCours[]>([]);

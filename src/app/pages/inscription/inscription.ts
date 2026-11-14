@@ -17,6 +17,7 @@ import { nomComplet } from '../../validators/nom-complet';
   templateUrl: './inscription.html',
   styleUrl: './inscription.css',
 })
+
 export class Inscription implements OnInit {
 
   private session = inject(Session);
